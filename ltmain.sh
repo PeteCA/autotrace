@@ -1,0 +1,1 @@
+/packages/libtool-2.4.2-1/.self/data/libtool/config/ltmain.sh

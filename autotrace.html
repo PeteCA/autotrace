@@ -1,0 +1,291 @@
+<html>
+<head>
+<title>AUTOTRACE(1) manual page</title>
+</head>
+<body bgcolor='white'>
+<a href='#toc'>Table of Contents</a><p>
+
+<h2><a name='sect0' href='#toc0'>Name</a></h2>
+autotrace - converts bitmap image data into vector graphics 
+<h2><a name='sect1' href='#toc1'>Synopsis</a></h2>
+<b>autotrace</b>
+[<b>-background-color</b> <i> hexvalue</i>] [<b>-centerline</b>] [<b>-color-count</b> <i> int</i>] [<b>-corner-always-threshold</b>
+<i>angle</i>] [<b>-corner-surround</b> <i> int</i>] [<b>-corner-threshold</b> <i> angle</i>] [<b>-despeckle-level</b> <i>
+int</i>] [<b>-despeckle-tightness</b> <i> real</i>] [<b>-dpi</b> <i> int</i>] [<b>-error-threshold</b> <i> real</i>] [<b>-filter-iterations</b>
+<i>int</i>] [<b>-help</b>] [<b>-input-format</b> <i> format</i>] [<b>-line-reversion-threshold</b> <i> real</i>] [<b>-line-threshold</b>
+<i>real</i>] [<b>-list-input-formats</b>] [<b>-list-output-formats</b>] [<b>-log</b>] [<b>-output-file</b> <i> file</i>] [<b>-output-format</b>
+<i>format</i>] [<b>-preserve-width</b>] [<b>-remove-adjacent-corners</b>] [<b>-report-progress</b>] [<b>-debug-arch</b>]
+[<b>-debug-bitmap</b>] [<b>-tangent-surround</b> <i> int</i>] [<b>-version</b>] [<b>-width-factor</b> <i> real</i>] <i>inputfile</i>
+
+<h2><a name='sect2' href='#toc2'>Description</a></h2>
+The <i>autotrace</i> program accepts bitmap graphics from the file
+<i>inputfile</i> specified on the command line, and as output produces a
+collection of splines approximating the original image, thus converting
+the image from bitmap to vector format. It behaves in a manner similar
+to the commercial software known as *tream*ine or *orel*race. The result
+is sent to standard output unless the <b>-output-file</b> option is active. Transparency
+in the source is ignored. 
+<h2><a name='sect3' href='#toc3'>Options</a></h2>
+Options can begin with either <b>--</b> or <b>-</b>. Any
+unambiguous abbreviation can be used for the option name. Option names
+and values can be separated with either a space or equal sign (=).
+<dl>
+
+<dt><b>-background-color</b><i>
+hexvalue</i> </dt>
+<dd>Employ the color specified by the hexadecimal code <i>hexcode</i> as
+the background that should be ignored, for example FFFFFF (default: no
+background color).</dd>
+
+<dt><b>-centerline</b> </dt>
+<dd>Trace an object&rsquo;s centerline (default: employ
+its outline).</dd>
+
+<dt><b>-color-count</b><i> int</i> </dt>
+<dd>Reduce the bitmap to using the number of
+colors specified by the unsigned integer <i>int</i> (range: 1-256).The default
+value of 0 indicates that no color reduction is to be done. Does not
+work with grayscale images. </dd>
+
+<dt><b>-corner-always-threshold</b><i> angle</i> </dt>
+<dd>Consider any
+angle at a pixel which falls below the specified <i>angle</i> (in degrees) as
+a corner, even if it is bordered by other corner pixels (default: 60). </dd>
+
+<dt><b>-corner-surround</b><i>
+int</i> </dt>
+<dd>Consider the specified number of pixels on either side of a point
+when determining if that point is a corner (default: 4). </dd>
+
+<dt><b>-corner-threshold</b><i>
+angle</i> </dt>
+<dd>Consider any pixel which forms an angle with its predecessor(s) and
+successor(s) that is smaller than the specified <i>angle</i> (in degrees) as
+a corner (default: 100).</dd>
+
+<dt><b>-despeckle-level</b><i> int</i> </dt>
+<dd>Employ the specified integer
+(range: 1-20) as the value for despeckling (default: no despeckling).</dd>
+
+<dt><b>-despeckle-tightness</b><i>
+real</i> </dt>
+<dd>Employ the specified real number (range: 0.0-8.0) as the value for
+despeckle tightness (default: 2.0).</dd>
+
+<dt><b>-dpi</b><i> int</i> </dt>
+<dd>The dots per inch value in the
+input image, affects scaling of mif output image. </dd>
+
+<dt><b>-error-threshold</b><i> real</i> </dt>
+<dd>Subdivide
+fitted curves that are offset by a number of pixels exceeding the
+specified real number (default: 2.0).</dd>
+
+<dt><b>-filter-iterations</b><i> int</i> </dt>
+<dd>Smooth the curve
+the specified number of times prior to fitting (default: 4). </dd>
+
+<dt><b>-help</b> </dt>
+<dd>Print
+a help message and exit. </dd>
+
+<dt><b>-input-format</b><i> format</i> </dt>
+<dd>Employ the specified input
+format, where <i>format</i> is one of: <blockquote></dd>
+
+<dt><b>BMP</b> (Windows bitmap format) </dt>
+<dd></dd>
+
+<dt><b>PBM</b> (Portable
+BitMap format) </dt>
+<dd></dd>
+
+<dt><b>PGM</b> (Portable Graymap format) </dt>
+<dd></dd>
+
+<dt><b>PNM</b> (Portable Anymap
+format) </dt>
+<dd></dd>
+
+<dt><b>PPM</b> (Portable Pixmap format) </dt>
+<dd></dd>
+
+<dt><b>TGA</b> (Targa format) </dt>
+<dd></dd>
+
+<dt><b>PNG</b> (Portable
+Network Graphics) </dt>
+<dd></dd>
+</dl>
+</blockquote>
+
+<dl>
+
+<dt>The supported input formats are determined when the
+application is built </dt>
+<dd>and depend upon the availability of other software
+(the <b>-list-input-formats</b> command can be used to determine which are supported
+locally).</dd>
+
+<dt><b>-line-reversion-threshold</b><i> real</i> </dt>
+<dd>When a spline is closer to a straight
+line than the specified real number weighted by the square of the curve
+length (default: .01),maintain it as a straight line, even if it is a
+list with curves. </dd>
+
+<dt><b>-line-threshold</b><i> real</i> </dt>
+<dd>If a spline does not deviate from
+the straight line defined by its endpoints by more than the specified
+number of pixels, then treat it as a straight line (default: 1). </dd>
+
+<dt><b>-list-input-formats</b>
+</dt>
+<dd>Send a list of the supported input formats to stderr. </dd>
+
+<dt><b>-list-output-formats</b>
+</dt>
+<dd>Send a list of the supported output formats to stderr. </dd>
+
+<dt><b>-log</b> </dt>
+<dd>Send a detailed
+progress report to the file <i>inputfile</i>.log. </dd>
+
+<dt><b>-output-file</b><i> file</i> </dt>
+<dd>Send the output
+to the specified file. </dd>
+
+<dt><b>-output-format</b><i> format</i> </dt>
+<dd>Employ the specified output
+format, where <i>format</i> is one of: <blockquote></dd>
+
+<dt><b>ai</b>(Adobe Illustrator) </dt>
+<dd></dd>
+
+<dt><b>cgm</b>(Computer
+Graphics Metafile) </dt>
+<dd></dd>
+
+<dt><b>dr2d</b>(IFF DR2D format, used almost exclusively on
+Amiga platforms) </dt>
+<dd></dd>
+
+<dt><b>dxf</b>(AutoCAD Drawing Exchange format) </dt>
+<dd></dd>
+
+<dt><b>emf</b>(Windows
+Enhanced Metafile format) </dt>
+<dd></dd>
+
+<dt><b>epd</b>(Encapsulated Vectorial Graphics format)
+</dt>
+<dd></dd>
+
+<dt><b>eps</b>(Encapsulated Ps) </dt>
+<dd></dd>
+
+<dt><b>er</b>(Elastic Reality Shape format) </dt>
+<dd></dd>
+
+<dt><b>fig</b>(<a href='xfig.1'><i>xfig</i> (1)</a>
+ 3.2)
+</dt>
+<dd></dd>
+
+<dt><b>mif</b>(FrameMaker MIF format) </dt>
+<dd></dd>
+
+<dt><b>pdf</b>(Portable Data Format) </dt>
+<dd></dd>
+
+<dt><b>p2e</b>(<a href='pstoedit.1'><a href='pstoedit.1'><i>pstoedit</i> (1)</a>
+</a>
+
+frontend) </dt>
+<dd></dd>
+
+<dt><b>sk</b>(Sketch) </dt>
+<dd></dd>
+
+<dt><b>svg</b>(Scalable Vector Graphics) </dt>
+<dd></dd>
+
+<dt><b>swf</b>(Shockwave Flash
+3) </dt>
+<dd></dd>
+</dl>
+</blockquote>
+
+<dl>
+
+<dt>The supported output formats are determined when the application is
+built </dt>
+<dd>and depend upon the availability of other software (the
+<b>-list-output-formats</b> command can be used to determine which are supported
+locally).</dd>
+
+<dt><b>-preserve-width</b> </dt>
+<dd>Whether to preserve line width prior to thinning.
+</dd>
+
+<dt><b>-remove-adjacent-corners</b> </dt>
+<dd>Remove adjacent corners. </dd>
+
+<dt><b>-report-progress</b> </dt>
+<dd>Report
+tracing status in real time. </dd>
+
+<dt><b>-debug-arch</b> </dt>
+<dd>Print the type of cpu. </dd>
+
+<dt><b>-debug-bitmap</b>
+</dt>
+<dd>Dump loaded bitmap to &lt;input_name&gt;.bitmap. </dd>
+
+<dt><b>-tangent-surround</b><i> int</i> </dt>
+<dd>Consider the
+specified number of points to either side of a point when computing the
+tangent at that point (default: 3). </dd>
+
+<dt><b>-version</b> </dt>
+<dd>Print the version number of
+the program and exit. </dd>
+
+<dt><b>-width-factor</b><i> real</i> </dt>
+<dd>Weight factor for fitting the
+linewidth. </dd>
+</dl>
+
+<h2><a name='sect4' href='#toc4'>See Also</a></h2>
+<a href='gimp.1'>gimp(1)</a>
+,<a href='ImageMagick.1'>ImageMagick(1)</a>
+,<a href='pbm.1'>pbm(1)</a>
+,<a href='pgm.1'>pgm(1)</a>
+,<a href='pnm.1'>pnm(1)</a>
+,<a href='ps2pdf.1'>ps2pdf(1)</a>
+,<a href='pstoedit.1'>pstoedit(1)</a>
+,<a href='pstoepd.1'>pstoepd(1)</a>
+,<a href='sketch.1'>sketch(1)</a>
+,<a href='xfig.1'>xfig(1)</a>
+,<a href='xv.1'>xv(1)</a>
+
+
+<h2><a name='sect5' href='#toc5'>Authors</a></h2>
+Martin Weber (martweb@gmx.net) <p>
+Manual page by R. P. C. Rodgers, Lister
+Hill National Center for Biomedical Communications, U.S. National Library
+of Medicine (rodgers@nlm.nih.gov).
+<!--
+<p>
+
+<hr><p>
+<a name='toc'><b>Table of Contents</b></a><p>
+<ul>
+<li><a name='toc0' href='#sect0'>Name</a></li>
+<li><a name='toc1' href='#sect1'>Synopsis</a></li>
+<li><a name='toc2' href='#sect2'>Description</a></li>
+<li><a name='toc3' href='#sect3'>Options</a></li>
+<li><a name='toc4' href='#sect4'>See Also</a></li>
+<li><a name='toc5' href='#sect5'>Authors</a></li>
+</ul>
+</body>
+</html>
